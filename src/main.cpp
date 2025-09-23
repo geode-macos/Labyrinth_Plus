@@ -3,24 +3,24 @@
 
 using namespace geode::prelude;
 
-const std::string& LEVEL_CREATOR = "tricipital";
-const std::string& LEVEL_NAME = "Labyrinth";
+constexpr std::string LEVEL_CREATOR = "tricipital";
+constexpr std::string LEVEL_NAME = "Labyrinth";
 static std::string achievements[] = { "beginnings","big spender","quick death","cursed","thievery", "upgrade", "min max", "ispy","boom","invigorated","flying","spicy",
 							  "freezing", "zap", "shutdown", "mystery", "prepared", "shortcut","sneaky deals", "secret box", "game time", "casino blitz","collector",
 							  "speedrunner1","speedrunner2","speedrunner3","speedrunner4","it lives","it rests","sneaky sneaky","droppy","good ending","escapee",
 							  "adventurer1","adventurer2","adventurer3","adventurer4","how to adventure","speed of light","blank","blank","blank" };
 
-static std::set playtesterIDs = { 6061424 ,4712395 , 11826816 , 63047 , 106255 , 4569963 , 1788352 , 1292925 , 2156992 , 1327813 , 8328899 , 2358957 , 201646 , 5375030 , 104497 ,
+static std::unordered_set playtesterIDs = { 6061424 ,4712395 , 11826816 , 63047 , 106255 , 4569963 , 1788352 , 1292925 , 2156992 , 1327813 , 8328899 , 2358957 , 201646 , 5375030 , 104497 ,
 						42681 , 1696128 , 15875490 , 1521580 , 7060819 , 3578384 , 13842489 , 2671693 , 1249399 , 8002621 , 21476843 , 4103842 , 6192122 , 10905351 ,
 						16750360 , 13935562 , 19542150 , 18298730 , 20063614 , 25373869 , 11167197 , 3822295 , 7882688, 571210, 7346996 , 9471312, 20550026, 8921237, 24813127 };
 
-static std::set contributorIDs = { 6061424 , 7882688 , 63047 , 34602 , 13903094 , 11167197 , 11826816 , 3166813 , 16610096 , 8851103 , 20371964 , 1696128 , 6225348 , 7709071 ,
+static std::unordered_set contributorIDs = { 6061424 , 7882688 , 63047 , 34602 , 13903094 , 11167197 , 11826816 , 3166813 , 16610096 , 8851103 , 20371964 , 1696128 , 6225348 , 7709071 ,
 						 8328899 , 20550026 , 13842489 , 2671693 , 16494507 , 8002621 , 14277495 , 54944 , 19864272 , 21113321 , 21476843 , 19691441 , 7060384 , 
 						 20581650 , 21679473 , 5454096 , 7346996};
 
-static std::set contestIDs = { 6061424 };
+static std::unordered_set contestIDs = { 6061424 };
 
-static std::set chatterIDs = { 6061424 , 25373869 , 19542150 , 28154640 , 21476843 , 31384585 , 2671693 , 13842489 , 27995263 , 63047 , 16546314 , 4422848};
+static std::unordered_set chatterIDs = { 6061424 , 25373869 , 19542150 , 28154640 , 21476843 , 31384585 , 2671693 , 13842489 , 27995263 , 63047 , 16546314 , 4422848};
 
 
 bool checkIfLabyrinth(PlayLayer* pl) {
@@ -44,7 +44,7 @@ void specialPrivs(PlayLayer* pl) {
 	// 		pl->updateCounters(432, 1);
 	// 	}
 	// }
-	if (std::ranges::binary_search(playtesterIDs.begin(), playtesterIDs.end(), userAccountID)) {
+	if (playtesterIDs.contains(userAccountID)) {
 		pl->m_effectManager->updateCountForItem(432, 1);
 		pl->updateCounters(432, 1);
 	}
@@ -56,7 +56,7 @@ void specialPrivs(PlayLayer* pl) {
 	// 		pl->updateCounters(433, 1);
 	// 	}
 	// }
-	if (std::ranges::binary_search(contributorIDs.begin(), contributorIDs.end(), userAccountID)) {
+	if (contributorIDs.contains(userAccountID)) {
 		pl->m_effectManager->updateCountForItem(433, 1);
 		pl->updateCounters(433, 1);
 	}
@@ -68,7 +68,7 @@ void specialPrivs(PlayLayer* pl) {
 	// 		pl->updateCounters(434, 1);
 	// 	}
 	// }
-	if (std::ranges::binary_search(contestIDs.begin(), contestIDs.end(), userAccountID)) {
+	if (contestIDs.contains(userAccountID)) {
 		pl->m_effectManager->updateCountForItem(434, 1);
 		pl->updateCounters(434, 1);
 	}
@@ -80,7 +80,7 @@ void specialPrivs(PlayLayer* pl) {
 	// 		pl->updateCounters(435, 1);
 	// 	}
 	// }
-	if (std::ranges::binary_search(chatterIDs.begin(), chatterIDs.end(), userAccountID)) {
+	if (chatterIDs.contains(userAccountID)) {
 		pl->m_effectManager->updateCountForItem(435, 1);
 		pl->updateCounters(435, 1);
 	}
